@@ -3,11 +3,20 @@
 # ============================================================
 FROM php:8.2-apache
 
-# Paksa HANYA mpm_prefork (mod_php membutuhkannya). Hapus paksa symlink MPM
-# lain agar tidak terjadi "AH00534: More than one MPM loaded".
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.* \
-          /etc/apache2/mods-enabled/mpm_worker.* \
- && a2enmod mpm_prefork rewrite
+# ------------------------------------------------------------
+# Paksa HANYA mpm_prefork (mod_php membutuhkannya).
+# Memperbaiki "AH00534: apache2: Configuration error: More than one MPM loaded".
+# Build akan GAGAL di sini kalau ternyata masih ada >1 MPM aktif,
+# jadi error tidak akan lolos ke runtime.
+# ------------------------------------------------------------
+RUN set -eux; \
+    a2dismod mpm_event mpm_worker 2>/dev/null || true; \
+    rm -f /etc/apache2/mods-enabled/mpm_event.* \
+          /etc/apache2/mods-enabled/mpm_worker.*; \
+    a2enmod mpm_prefork rewrite; \
+    mpm_count="$(ls /etc/apache2/mods-enabled/ | grep -c '^mpm_' || true)"; \
+    echo "MPM enabled count = ${mpm_count}"; \
+    test "${mpm_count}" = "1"
 
 # Ekstensi MySQLi (dipakai config/db.php)
 RUN docker-php-ext-install mysqli
