@@ -14,8 +14,10 @@ RUN set -eux; \
     rm -f /etc/apache2/mods-enabled/mpm_event.* \
           /etc/apache2/mods-enabled/mpm_worker.*; \
     a2enmod mpm_prefork rewrite; \
-    mpm_count="$(ls /etc/apache2/mods-enabled/ | grep -c '^mpm_' || true)"; \
-    echo "MPM enabled count = ${mpm_count}"; \
+    echo "=== BUILD MARKER v4 — MPM check ==="; \
+    ls -1 /etc/apache2/mods-enabled/mpm_* || true; \
+    mpm_count="$(ls -1 /etc/apache2/mods-enabled/mpm_*.load 2>/dev/null | wc -l)"; \
+    echo "MPM load modules = ${mpm_count}"; \
     test "${mpm_count}" = "1"
 
 # Ekstensi MySQLi (dipakai config/db.php)
