@@ -3,8 +3,17 @@
 # ============================================================
 FROM php:8.2-apache
 
+# Pastikan HANYA satu MPM aktif (mod_php butuh prefork).
+# Memperbaiki error: "AH00534: More than one MPM loaded".
+RUN a2dismod mpm_event 2>/dev/null || true; \
+    a2dismod mpm_worker 2>/dev/null || true; \
+    a2enmod mpm_prefork
+
 # Ekstensi MySQLi (dipakai config/db.php) + mod_rewrite
 RUN docker-php-ext-install mysqli && a2enmod rewrite
+
+# Hilangkan warning FQDN
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Salin seluruh project ke web root Apache
 COPY . /var/www/html/
