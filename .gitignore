@@ -1,0 +1,29 @@
+# ============================================================
+#  .gitignore  →  file yang TIDAK perlu ikut ke GitHub/Railway
+# ============================================================
+
+# --- File upload user (jangan masuk repo, tapi folder tetap ada via .gitkeep) ---
+uploads/*
+!uploads/.gitkeep
+
+# --- Environment & rahasia ---
+.env
+.env.*
+
+# --- Dependency (kalau nanti pakai Composer) ---
+/vendor/
+composer.lock
+
+# --- Log & cache ---
+*.log
+*.cache
+
+# --- File OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Folder editor/IDE ---
+.vscode/
+.idea/
+*.swp

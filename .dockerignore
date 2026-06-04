@@ -1,0 +1,9 @@
+# File yang tidak perlu ikut ke server
+.git
+.gitignore
+Dockerfile
+.dockerignore
+README.md
+database.sql
+db-railway.sql
+*.log

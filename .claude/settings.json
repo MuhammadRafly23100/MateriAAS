@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(& \"C:\\\\xampp\\\\mysql\\\\bin\\\\mysql.exe\" -u root -e \"SHOW DATABASES LIKE 'db_kampus'; USE db_kampus; SHOW TABLES; SELECT id, nama, npm FROM mahasiswa; SELECT username, role FROM users;\")",
+      "PowerShell(& \"C:\\\\xampp\\\\php\\\\php.exe\" -r \"echo PHP_VERSION;\")",
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\PraktikAAS\\\\panduan-php.php\")",
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\PraktikAAS\\\\includes\\\\functions.php\")",
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\PraktikAAS\\\\panduan-css.php\")",
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\PraktikAAS\\\\panduan-crud.php\")",
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\PraktikAAS\\\\includes\\\\header.php\")",
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\PraktikAAS\\\\praktikum.php\")",
+      "Bash(php -l \"c:\\\\xampp\\\\htdocs\\\\PraktikAAS\\\\panduan-upload.php\")"
+    ]
+  }
+}
